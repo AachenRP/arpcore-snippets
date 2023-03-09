@@ -1,0 +1,270 @@
+{
+  "Import ARPCore": {
+    "prefix": ["arpcore", "importarp", "arpimport"],
+    "body": ["local ARPCore = exports['arp-core']:GetCoreObject()"],
+    "description": "Import ARPCore locally."
+  },
+
+  "ARPCore Shared": {
+    "prefix": ["arpshared"],
+    "body": ["shared_scripts {", "\t'@arp-core/import.lua'", "}"],
+    "description": "FxManifest Shared ARPCore. (Resource Import)"
+  },
+
+  "ARPCore Get Player": {
+    "prefix": ["getplayer", "gp"],
+    "body": ["local Player = ARPCore.Functions.GetPlayer(${1:source})"],
+    "description": "Get the Player. (Server Side)"
+  },
+
+  "ARPCore Get Player Data": {
+    "prefix": ["getplayerdata", "gpd"],
+    "body": ["local ${name:playerData} = ARPCore.Functions.GetPlayerData()"],
+    "description": "Get the player data. (Client Side)"
+  },
+
+  "ARPCore FXManifest": {
+    "prefix": ["arpmanifest"],
+    "body": [
+        "$LINE_COMMENT ${1:resourceName} Resource\n",
+        "fx_version 'cerulean'",
+        "game 'gta5'\n",
+        "client_script '${2:client/client.lua}'",
+        "server_script '${3:server/server.lua}'\n",
+        "shared_scripts {",
+        "\t'@arp-core/import.lua'",
+        "}"
+    ]
+  },
+
+  "ARPCore Remove Money": {
+    "prefix": ["rpm", "removemoney"],
+    "body": [
+      "${1:Player}.Functions.RemoveMoney(${2:moneytype}, ${3:amount}, ${1:reason})"
+    ],
+    "description": "Remove money from a player. (Server Side)"
+  },
+
+  "ARPCore OxMySql Insert Sync": {
+    "prefix": ["insertsync", "oxmyis"],
+    "body": ["local res = exports.oxmysql:insertSync('${1:query}', {})"],
+    "description": "Insert Sync. ARPCore/OxMySql"
+  },
+
+  "ARPCore OxMySql Insert Async": {
+    "prefix": ["oxmyinsert", "oxmyi"],
+    "body": ["local res = exports.oxmysql:insert('${1:query}', {})"],
+    "description": "Insert. ARPCore/OxMySql"
+  },
+
+  "ARPCore OxMySql Execute": {
+    "prefix": ["oxmyexe", "oxmyexecute"],
+    "body": ["local res = exports.oxmysql:execute('${1:query}', {})"],
+    "description": "Execute. ARPCore/OxMySql"
+  },
+
+  "ARPCore OxMySql Execute Sync": {
+    "prefix": ["oxmyexesync", "oxmyexecutesync"],
+    "body": ["local res = exports.oxmysql:executeSync('${1:query}', {})"],
+    "description": "Execute Sync. ARPCore/OxMySql"
+  },
+
+  "ARPCore OxMySql Update": {
+      "prefix": ["oxmyupdate"],
+      "body": ["local res = exports.oxmysql:update('${1:query}', {})"],
+      "description": "Update. ARPCore/OxMySql"
+  },
+
+  "ARPCore OxMySql Update Sync": {
+      "prefix": ["oxmyupdate", "arpupdate"],
+      "body": ["local res = exports.oxmysql:updateSync('${1:query}', {})"],
+      "description": "Update Sync. ARPCore/OxMySql"
+   },
+
+   "ARPCore Add Command": {
+       "prefix": ["arpaddcommand", "arpadd"],
+       "body": [
+           "ARPCore.Commands.Add(${1:commandName}, ${2:commandDescription}, {${3:args}}, ${4:argsRequired?}, function(source, args)",
+        "\t${6:-- Code..}",
+    "end, ${5:needsPermission?})"],
+    
+        "description": "ARPCore Add Command. (Server Side)"
+   },
+
+   "ARPCore Create Callback": {
+       "prefix": ["arpcreatecallback", "arpccb"],
+       "body": ["ARPCore.Functions.CreateCallback(${1:name}, function(${2:args}", "\t${3:-- Code..}", "end)"],
+       "description": "ARPCore Create Callback. (Server Side)"
+   },
+
+
+   "ARPCore Get Coords Of Entity": {
+       "prefix": ["arpcoords", "arpgetcoords"],
+       "body": ["local entityCoords = ARPCore.Functions.GetCoords(${1:entity})"],
+       "description": "ARPCore Get Entity Coords. (Server Side)"
+   },
+
+   "ARPCore Get Identifier": {
+       "prefix": ["arpgetid", "arpid", "arpgetidentifier"],
+       "body": ["local playerIdentification = ARPCore.Functions.GetIdentifier(${1:source}, ${2:'bank'})"],
+       "description": "ARPCore Get Player Identification. (Server Side)"
+    },
+
+    "ARPCore Get Source": {
+        "prefix": ["arpgetsource", "arpsource"],
+        "body": "local foundSource = ARPCore.Functions.GetSource(${1:identifier}",
+        "description": "ARPCore Get Source From Identifier. (Server Side)"
+    },
+
+    "ARPCore Get Player By Citizen Id": {
+        "prefix": ["arpgetplayerbycitizenid", "arpgetbycit"],
+        "body": "local xPlayer = ARPCore.Functions.GetPlayerByCitizenId(${1:citizenid})",
+        "description": "ARPCore Get Player From Citizen Id. (Server Side)"
+    },
+
+    "ARPCore Get Player By Phone": {
+        "prefix": ["arpgetbyphone", "arpgetplayerbyphone"],
+        "body": ["local xPlayer = ARPCore.Functions.GetPlayerByPhone(${1:phoneNumber}"],
+        "description": "ARPCore Get Player From Phone Number. (Server Side)"
+    },
+
+    "ARPCore Get Players": {
+        "prefix": ["arpgetplayers"],
+        "body": ["local players = ARPCore.Functions.GetPlayers()"],
+        "description": "ARPCore Get All Player ID's In The Server. (Server Side) [DEPRECATED]"
+    },
+
+    "ARPCore Get ARP Players": {
+        "prefix": ["arpgetarpplayers"],
+        "body": "local arpPlayers = ARPCore.Functions.GetARPPlayers()",
+        "description": "ARPCore Get All Active Players On The Server. (Server Side) [PREFERRED]"
+    },
+
+    "ARPCore Trigger Callback": {
+        "prefix": ["arptc", "arptriggercallback"],
+        "body": ["ARPCore.Functions.TriggerCallback(${1:name}, ${2:sourceForServerSide}, {$3:cb}"],
+        "description": "ARPCore Trigger A Callback. (Client & Server Side.)"
+    },
+
+    "ARPCore Create Usable Item": {
+        "prefix": ["arpcui", "arpcreateusableitem"],
+        "body": ["ARPCore.Functions.CreateUsableItem(${1:item}, function(${2:args})", "\t${4:-- Code..}", "end)"],
+        "description": "ARPCore Create Usable Item. (Server Side)"
+    },
+
+    "ARPCore Can Use Item": {
+        "prefix": ["arpcanui", "arpcanuseitem"], 
+        "body": ["local canUseCertainItem = ARPCore.Functions.CanUseItem(${1:item})"],
+        "description": "ARPCore Can Use Item? (Server Side)"
+    },
+    
+    "ARPCore Use Item": {
+        "prefix": ["arpuseitem", "arpui"],
+        "body": "ARPCore.Functions.UseItem(${1:source}, ${2:item})",
+        "description": "ARPCore Use Item. (Server Side)"
+    },
+
+    "ARPCore Kick": {
+        "prefix": ["arpkick"],
+        "body": "ARPCore.Functions.Kick(${1:source}, '${2:reason}', ${3:setKickReason}, ${4:deferrals})",
+        "description": "ARPCore Kick. (Server Side)"
+    },
+
+    "ARPCore Add Permission": {
+        "prefix": ["arpaddpermission"],
+        "body": "ARPCore.Functions.AddPermission(${1:source}, ${2:permission})",
+        "description": "ARPCore Add Permission. (Server Side)"
+    },
+
+    "ARPCore Remove Permission": {
+      "prefix": ["arpremovepermission"],
+      "body": [
+        "ARPCore.Functions.RemovePermission(${1:source})"
+      ],
+      "description": "ARPCore Remove Permission. (Server Side)"
+    },
+
+    "ARPCore Has Permission": {
+      "prefix": ["arphaspermission"],
+      "body": "local doesPlayerHavePermission = ARPCore.Functions.HasPermission(${1:source}, ${2:permissionName})",
+      "description": "ARPCore Has Permission. (Server Side)"
+    },
+
+    "ARPCore Get Permission": {
+      "prefix": "arpgetpermission",
+      "body": ["local ${1:foundPermission} = ARPCore.Functions.GetPermission(${2:source})"],
+      "description": "ARPCore Get Permission. (Server Side)"
+    },
+
+    "ARPCore Is Player Banned": {
+      "prefix": ["arpisplayerbanned"],
+      "body": ["local isPlayerBanned = ARPCore.Functions.IsPlayerBanned(${1:source}) -- Boolean"],
+      "description": "ARPCore Is Player Banned. (Server Side)"
+    },
+
+    "ARPCore Is License In Use": {
+      "prefix": "arpislicenseinuse",
+      "body": ["local isLicenseInUse = ARPCore.Functions.IsLicenseInUse(${1:license})"],
+      "description": "ARPCore Is License In Use. (Server Side)"
+    },
+
+    "ARPCore Event Trigger Callback": {
+      "prefix": ["arpetc", "arpetriggercallback"],
+      "body": ["TriggerServerEvent('ARPCore:Server:TriggerCallback', ${1:name})"],
+      "description": "ARPCore Trigger Callback. [EVENT] (Server Side)"
+    },
+
+    "ARPCore Event Update Player": {
+      "prefix": ["arpeupdateplayer"],
+      "body": ["TriggerServerEvent('ARPCore:Client:UpdatePlayer')"],
+      "description": "ARPCore Update Player. [EVENT] (Server Side)"
+    },
+
+    "ARPCore Event Set Meta Data": {
+      "prefix": ["arpesetmetadata"],
+      "body": "TriggerServerEvent('ARPCore:Server:SetMetaData', ${1:meta}, ${2:data})",
+      "description": "ARPCore Set Meta Data. [EVENT] (Server Side)"
+    },
+    
+    "ARPCore Event Toggle Duty": {
+      "prefix": "arpetoggleduty",
+      "body": "TriggerServerEvent('ARPCore:ToggleDuty') -- needs source.",
+      "description": "ARPCore Toggle Duty. [EVENT] (Server Side)"
+    },
+
+    "ARPCore Event Use Item": {
+      "prefix": ["arpeuseitem"],
+      "body": "TriggerServerEvent('ARPCore:Server:UseItem', ${1:item})",
+      "description": "ARPCore Use Item. [NOT RECOMMENDED BY DOCS] [EVENT] (Server Side)"
+    },
+    
+    "ARPCore Event Remove Item": {
+      "prefix": ["arperemoveitem"],
+      "body": "TriggerServerEvent('ARPCore:Server:UseItem', ${1:item})",
+      "description": "ARPCore Event Item. [NOT RECOMMENDED BY DOCS] [EVENT] (Server Side)"
+    },
+
+    "ARPCore Event Add Item": {
+      "prefix": ["arpeadditem"],
+      "body": "TriggerServerEvent('ARPCore:Server:AddItem', ${1:itemName}, ${2:amount}, ${3:slot}, ${4:info})",
+      "description": "ARPCore Add Item. [NOT RECOMMENDED BY DOCS] [EVENT] (Server Side)"
+    },
+
+    "ARPCore Call Command": {
+      "prefix": ["arpecallcommand"],
+      "body": "TriggerServerEvent('${1:name}, ${2:args})'",
+      "description": "ARPCore Call Command. [EVENT] (Server Side)"
+    },
+
+    "ARPCore Event Notify": {
+      "prefix": "arpenotify",
+      "body": "TriggerClientEvent('ARPCore:Notify', ${1:text}, ${2:type}, ${3:length})",
+      "description": "ARPCore Notify. [EVENT]"
+    },
+
+    "ARPCore Notify": {
+      "prefix": "arpnotify",
+      "body": "ARPCore.Functions.Notify(${1:text}, ${2:type}, ${3:millisecondDuration})",
+      "description": "ARPCore Notify. (Client Side)"
+    }
+}
