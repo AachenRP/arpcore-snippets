@@ -1,7 +1,7 @@
 {
-  "name": "qbcore-helper",
-  "displayName": "qbcore-helper",
-  "description": "Basic QBCore Snippets",
+  "name": "arpcore-snippets",
+  "displayName": "arpcore-snippets",
+  "description": "Basic ARPCore Snippets",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.62.0"
@@ -11,25 +11,25 @@
     "Linters"
   ],
   "activationEvents": [
-    "onCommand:qbcore-helper.helloWorld",
-    "onCommand:qbcore-helper.CreatePlugin"
+    "onCommand:arpcore-snippets.helloWorld",
+    "onCommand:arpcore-snippets.CreatePlugin"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "qbcore-helper.helloWorld",
+        "command": "arpcore-snippets.helloWorld",
         "title": "Hello World"
       },
       {
-        "command": "qbcore-helper.CreatePlugin",
-		"title": "Create QBCore Plugin"
+        "command": "arpcore-snippets.CreatePlugin",
+		"title": "Create ARPCore Plugin"
       }
     ],
     "snippets": [
       {
         "language": "lua",
-        "path": "./snippets/qbcore-snippets.json"
+        "path": "./snippets/arpcore-snippets.json"
       }
     ]
   },
